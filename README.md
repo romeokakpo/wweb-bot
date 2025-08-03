@@ -17,11 +17,14 @@ wasendcode/
 │   │   ├── index.js
 │   │   └── messages.js
 │   ├── middleware/       # Middleware personnalisés
-│   │   └── index.js
+│   │   ├── index.js
+│   │   └── auth.js
 │   ├── utils/           # Utilitaires
 │   │   ├── fileUtils.js
 │   │   └── validationUtils.js
 │   └── app.js           # Configuration Express
+├── public/              # Fichiers statiques
+│   └── index.html      # Page QR code
 ├── index.js             # Point d'entrée
 ├── package.json
 ├── .env.example

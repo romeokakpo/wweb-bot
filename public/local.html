@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp QR Code</title>
+    <title>WhatsApp QR Code - Local</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -49,6 +49,15 @@
             color: #666;
             margin-bottom: 30px;
             font-size: 16px;
+        }
+
+        .environment {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
 
         .qr-container {
@@ -154,6 +163,7 @@
     <div class="container">
         <div class="whatsapp-logo">📱</div>
         <h1>Connexion WhatsApp</h1>
+        <div class="environment">🏠 Mode Local (localhost:5001)</div>
         <p class="subtitle">Scannez le QR code avec votre téléphone pour vous connecter</p>
 
         <div id="status" class="status loading">
@@ -176,19 +186,15 @@
         </div>
 
         <button class="refresh-btn" onclick="checkStatus()">🔄 Actualiser</button>
-        <button class="refresh-btn" onclick="window.open('./health', '_blank')">📊 Statut API</button>
-        <button class="refresh-btn" onclick="window.open('../wweb-health', '_blank')">🔍 Health Public</button>
+        <button class="refresh-btn" onclick="window.open('/health', '_blank')">📊 Statut API</button>
     </div>
 
     <script>
         let checkInterval;
 
-        // Détecter le chemin de base (si on est dans /whatsapp/ ou pas)
-        const basePath = window.location.pathname.includes('/wweb') ? '.' : '';
-
         async function checkStatus() {
             try {
-                const response = await fetch(`${basePath}/api/messages/status`);
+                const response = await fetch('/api/messages/status');
                 const data = await response.json();
                 
                 const statusDiv = document.getElementById('status');
@@ -210,9 +216,9 @@
                     statusDiv.innerHTML = '<div class="loading-spinner"></div>En attente de connexion...';
                     
                     // Vérifier s'il y a un QR code disponible
-                    const qrResponse = await fetch(`${basePath}/qr-code.png`);
+                    const qrResponse = await fetch('/qr-code.png');
                     if (qrResponse.ok) {
-                        qrCode.src = `${basePath}/qr-code.png?` + new Date().getTime(); // Cache busting
+                        qrCode.src = '/qr-code.png?' + new Date().getTime(); // Cache busting
                         qrContainer.classList.remove('hidden');
                         instructions.classList.remove('hidden');
                     } else {

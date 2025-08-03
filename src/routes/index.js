@@ -65,4 +65,9 @@ router.get('/qr', (req, res) => {
     res.sendFile('index.html', { root: 'public' });
 });
 
+// Route pour la version locale de test
+router.get('/local', (req, res) => {
+    res.sendFile('local.html', { root: 'public' });
+});
+
 module.exports = router;
