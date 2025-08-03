@@ -48,21 +48,13 @@ Vérification de l'état du serveur
 ### GET /api/messages/status
 Vérification de l'état du service WhatsApp
 
-### POST /api/messages/send-code
-Envoie un code via WhatsApp
-```json
-{
-  "code": "123456",
-  "phoneNumber": "22996762103@c.us"
-}
-```
 
 ### POST /api/messages/send-message
 Envoie un message personnalisé
 ```json
 {
   "message": "Votre message ici",
-  "phoneNumber": "22996762103@c.us"
+  "phoneNumber": "22960015516@c.us"
 }
 ```
 
@@ -72,7 +64,6 @@ Configurez les variables d'environnement dans le fichier `.env` :
 
 - `PORT` : Port du serveur (défaut: 5001)
 - `HOST` : Hôte du serveur (défaut: localhost)
-- `AUTHORIZED_NUMBERS` : Numéros autorisés séparés par des virgules
 - `SAVE_PATH` : Chemin de sauvegarde des données WhatsApp
 - `NODE_ENV` : Environnement (development/production)
 
