@@ -71,7 +71,7 @@ class MessageController {
 
     // Utiliser une arrow function pour préserver le contexte 'this'
     sendMediaFromBase64 = async (req, res) => {
-        const { phoneNumber, base64Data, mimeType, caption } = req.body;
+        let { phoneNumber, base64Data, mimeType, caption } = req.body;
 
         if (!phoneNumber || !base64Data || !mimeType) {
             return res.status(400).json({
