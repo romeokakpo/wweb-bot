@@ -1,6 +1,4 @@
-# WhatsApp Web Message Bot API
-
-# WhatsApp Code Sender
+# WhatsApp Web Bot API
 
 Service for sending codes and messages via WhatsApp Web with admin authentication.
 

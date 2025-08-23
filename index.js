@@ -1,5 +1,4 @@
 const App = require('./src/app');
-const whatsappService = require('./src/services/whatsappService');
 
 // Créer l'application
 const app = new App();
