@@ -70,6 +70,53 @@ class MessageController {
     }
 
     // Utiliser une arrow function pour préserver le contexte 'this'
+    sendMediaFromBase64 = async (req, res) => {
+        const { phoneNumber, base64Data, mimeType, caption } = req.body;
+
+        if (!phoneNumber || !base64Data || !mimeType) {
+            return res.status(400).json({
+                error: 'Numéro de téléphone, données en base64 et type MIME sont requis.',
+                required: ['phoneNumber', 'base64Data', 'mimeType']
+            });
+        }
+
+        // Formater le numéro automatiquement
+        phoneNumber = this.formatPhoneNumber(phoneNumber);
+
+        // Valider le format du numéro
+        if (!this.validatePhoneNumber(phoneNumber)) {
+            return res.status(400).json({
+                error: 'Format de numéro invalide. Le numéro doit être au format: 22996762103@c.us ou 22996762103',
+                received: phoneNumber
+            });
+        }
+
+        try {
+            if (!whatsappService.isClientReady()) {
+                return res.status(503).json({
+                    error: 'Service WhatsApp non disponible.'
+                });
+            }
+
+            await whatsappService.sendMediaFromBase64(phoneNumber, base64Data, mimeType, caption);
+
+            res.status(200).json({
+                success: true,
+                message: 'Média envoyé avec succès.',
+                phoneNumber: phoneNumber,
+                timestamp: new Date().toISOString()
+            });
+
+        } catch (error) {
+            console.error('Erreur lors de l\'envoi du média:', error);
+            res.status(500).json({
+                error: 'Erreur lors de l\'envoi du média.',
+                details: error.message
+            });
+        }
+    }
+
+    // Utiliser une arrow function pour préserver le contexte 'this'
     getStatus = async (req, res) => {
         try {
             const isReady = whatsappService.isClientReady();

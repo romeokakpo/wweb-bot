@@ -1,4 +1,4 @@
-const { Client, LocalAuth } = require("whatsapp-web.js");
+const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js");
 const QRCode = require("qrcode");
 const fs = require('fs').promises;
 const path = require('path');
@@ -67,6 +67,22 @@ class WhatsAppService {
         }
     }
 
+    async sendMediaFromBase64(phoneNumber, base64Data, mimeType, caption) {
+        if (!this.isReady) {
+            throw new Error("Le client WhatsApp n'est pas prêt");
+        }
+
+        try {
+            const media = new MessageMedia(mimeType, base64Data);
+            await this.client.sendMessage(phoneNumber, media, { caption });
+            console.log(`Média envoyé à ${phoneNumber}`);
+            return { success: true };
+        } catch (error) {
+            console.error("Erreur lors de l'envoi du média:", error);
+            throw error;
+        }
+    }
+
     isClientReady() {
         return this.isReady;
     }
@@ -90,7 +106,7 @@ class WhatsAppService {
             // Créer le dossier public s'il n'existe pas
             const publicDir = path.dirname(this.qrFilePath);
             await fs.mkdir(publicDir, { recursive: true });
-            
+
             // Générer le QR code en PNG
             await QRCode.toFile(this.qrFilePath, qrData, {
                 width: 300,
@@ -100,7 +116,7 @@ class WhatsAppService {
                     light: '#FFFFFF'
                 }
             });
-            
+
             console.log(`QR Code sauvegardé dans: ${this.qrFilePath}`);
         } catch (error) {
             console.error('Erreur lors de la sauvegarde du QR code:', error);

@@ -1,31 +1,33 @@
+# WhatsApp Web Message Bot API
+
 # WhatsApp Code Sender
 
-Service d'envoi de codes et messages via WhatsApp Web.
+Service for sending codes and messages via WhatsApp Web with admin authentication.
 
-## Structure du projet
+## Project Structure
 
 ```
 wasendcode/
 ├── src/
-│   ├── config/           # Configuration de l'application
+│   ├── config/           # Application configuration
 │   │   └── index.js
-│   ├── controllers/      # Logique de contrôle des routes
+│   ├── controllers/      # Route control logic
 │   │   └── messageController.js
-│   ├── services/         # Services métier
+│   ├── services/         # Business services
 │   │   └── whatsappService.js
-│   ├── routes/           # Définition des routes
+│   ├── routes/           # Route definitions
 │   │   ├── index.js
 │   │   └── messages.js
-│   ├── middleware/       # Middleware personnalisés
+│   ├── middleware/       # Custom middleware
 │   │   ├── index.js
 │   │   └── auth.js
-│   ├── utils/           # Utilitaires
+│   ├── utils/           # Reusable utilities
 │   │   ├── fileUtils.js
 │   │   └── validationUtils.js
-│   └── app.js           # Configuration Express
-├── public/              # Fichiers statiques
-│   └── index.html      # Page QR code
-├── index.js             # Point d'entrée
+│   └── app.js           # Express configuration
+├── public/              # Static files
+│   └── index.html      # QR code page
+├── index.js             # Entry point
 ├── package.json
 ├── .env.example
 └── README.md
@@ -33,49 +35,48 @@ wasendcode/
 
 ## Installation
 
-1. Cloner le projet
-2. Installer les dépendances : `npm install`
-3. Copier `.env.example` vers `.env` et configurer les variables
-4. Démarrer l'application : `npm start`
+1. Clone the project
+2. Install dependencies: `npm install`
+3. Copy `.env.example` to `.env` and configure variables
+4. Start the application: `npm start`
 
-## Scripts disponibles
+## Available Scripts
 
-- `npm start` : Démarre l'application
-- `npm run dev` : Démarre en mode développement (avec nodemon)
+- `npm start`: Start the application
+- `npm run dev`: Start in development mode (with nodemon)
 
 ## API Endpoints
 
 ### GET /health
-Vérification de l'état du serveur
+Server status check
 
 ### GET /api/messages/status
-Vérification de l'état du service WhatsApp
-
+WhatsApp service status check
 
 ### POST /api/messages/send-message
-Envoie un message personnalisé
+Send a custom message
 ```json
 {
-  "message": "Votre message ici",
+  "message": "Your message here",
   "phoneNumber": "22960015516@c.us"
 }
 ```
 
 ## Configuration
 
-Configurez les variables d'environnement dans le fichier `.env` :
+Configure environment variables in the `.env` file:
 
-- `PORT` : Port du serveur (défaut: 5001)
-- `HOST` : Hôte du serveur (défaut: localhost)
-- `SAVE_PATH` : Chemin de sauvegarde des données WhatsApp
-- `NODE_ENV` : Environnement (development/production)
+- `PORT`: Server port (default: 5001)
+- `HOST`: Server host (default: localhost)
+- `SAVE_PATH`: WhatsApp data save path
+- `NODE_ENV`: Environment (development/production)
 
-## Extension du projet
+## Project Extension
 
-La structure modulaire facilite l'ajout de nouvelles fonctionnalités :
+The modular structure facilitates adding new features:
 
-1. **Nouveaux services** : Ajouter dans `src/services/`
-2. **Nouvelles routes** : Ajouter dans `src/routes/`
-3. **Nouveaux contrôleurs** : Ajouter dans `src/controllers/`
-4. **Middleware personnalisés** : Ajouter dans `src/middleware/`
-5. **Utilitaires** : Ajouter dans `src/utils/`
+1. **New services**: Add in `src/services/`
+2. **New routes**: Add in `src/routes/`
+3. **New controllers**: Add in `src/controllers/`
+4. **Custom middleware**: Add in `src/middleware/`
+5. **Utilities**: Add in `src/utils/`

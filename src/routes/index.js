@@ -54,6 +54,7 @@ router.get('/', (req, res) => {
         endpoints: {
             health: 'GET /health',
             sendMessage: 'POST /api/messages/send-message',
+            sendMediaFromBase64: 'POST /api/messages/send-media-b64',
             status: 'GET /api/messages/status',
             qrPage: 'GET /qr (Page web pour scanner le QR code)'
         }
